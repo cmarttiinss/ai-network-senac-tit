@@ -1,127 +1,141 @@
-# 📘 Documentação da Máquina Virtual Ubuntu
+# 📘 Documentação da Máquina Virtual Ubuntu Server
 
-## 🎯 Visão Geral
-
-Este documento apresenta um resumo da máquina virtual **wslinux01**, organizado de forma simples e visual para facilitar consultas rápidas.
+## 🎯 Objetivo
+Este documento apresenta uma visão simplificada da infraestrutura da máquina virtual Ubuntu Server utilizada no laboratório, com foco em facilitar a consulta por profissionais técnicos e não técnicos.
 
 ---
 
 # 🖥️ 1. Informações Gerais do Servidor
 
-## 📂 Identificação
+## 📋 Identificação
 
 | Item | Informação |
 |--------|------------|
-| Nome do servidor | wslinux01 |
-| Sistema Operacional | Ubuntu 24.04.4 LTS |
+| Nome do Servidor | wslinux01 |
+| Sistema Operacional | Ubuntu Server 24.04.4 LTS |
 | Codinome | Noble |
-| Tipo | Servidor Linux |
-| Status Geral | ✅ Operacional |
+| Tipo | Máquina Virtual |
+| Plataforma de Virtualização | Oracle VirtualBox |
 
 ---
 
-# ⚙️ 2. Recursos de Hardware
+# 🏗️ 2. Infraestrutura
 
-## 🧠 Processador
+## 💻 Recursos de Processamento
 
-| Item | Valor |
-|--------|--------|
-| Modelo | Intel Core i7-14700K |
-| CPUs Disponíveis | 2 |
-| Soquetes | 1 |
+| Recurso | Detalhe |
+|----------|----------|
+| Processador | Intel Core i7-14700K |
+| CPUs Disponíveis | 2 vCPUs |
+| Socket | 1 |
 | Núcleos Utilizados | 2 |
 
-### Observação
-💡 Ambiente adequado para laboratórios, testes e aplicações de pequeno porte.
+### 📝 Observação
+A máquina virtual utiliza apenas uma pequena parcela da capacidade do equipamento físico.
 
 ---
 
-## 💾 Memória
+## 🧠 Memória
+
+| Recurso | Valor |
+|----------|--------|
+| Memória Total | 3,8 GB |
+| Em Uso | 1,3 GB |
+| Disponível | 2,5 GB |
+| Swap | 2 GB |
+
+---
+
+## 💾 Armazenamento
+
+### Estrutura dos Discos
+
+| Disco | Capacidade |
+|---------|------------|
+| Disco Virtual (sda) | 50 GB |
+| Partição Boot | 2 GB |
+| Partição Sistema | 48 GB |
+
+### Utilização
 
 | Item | Valor |
 |--------|--------|
-| Memória Total | 3,8 GB |
-| Em Uso | 1,3 GB |
-| Livre | 1,5 GB |
-| Disponível | 2,5 GB |
-| Swap | 2,0 GB |
-| Uso da Swap | 0% |
-
-### Status
-✅ Consumo de memória dentro da normalidade.
+| Espaço Total | 47 GB |
+| Utilizado | 11 GB |
+| Livre | 35 GB |
+| Uso Atual | 24% |
 
 ---
 
-# 💽 3. Armazenamento
-
-## 📦 Estrutura de Disco
-
-| Disco | Tamanho |
-|---------|----------|
-| sda | 50 GB |
-
-### Partições
-
-| Partição | Função | Tamanho |
-|------------|----------|----------|
-| sda1 | Sistema | 1 MB |
-| sda2 | Boot | 2 GB |
-| sda3 | Dados do sistema | 48 GB |
-
----
-
-## 📊 Utilização
-
-| Ponto de Montagem | Tamanho | Utilizado | Livre | Uso |
-|------------------|----------|-----------|--------|------|
-| / | 47 GB | 11 GB | 35 GB | 24% |
-| /boot | 2 GB | 200 MB | 1,6 GB | 11% |
-
-### Status
-✅ Espaço em disco com ampla capacidade disponível.
-
----
-
-# 🌐 4. Rede
+# 🌐 3. Rede
 
 ## 🔌 Interface de Rede
 
-| Interface | Status |
-|------------|----------|
-| enp0s3 | ✅ Ativa |
-
-### Endereços IP Identificados
-
-| Tipo | Endereço |
+| Item | Informação |
 |--------|------------|
-| Principal | 10.24.82.215 |
-| Secundário | 10.24.82.47 |
-| Outro registro identificado | 10.24.82.213 |
-
----
-
-## 🚪 Gateway
-
-| Configuração | Valor |
-|-------------|--------|
-| Gateway Padrão | 10.24.82.1 |
+| Interface Principal | enp0s3 |
+| Método de Conexão | Bridge |
+| DHCP | Habilitado |
+| IPv4 Principal | 10.24.82.215 |
+| Gateway | 10.24.82.1 |
 
 ---
 
 ## 🌍 DNS
 
-| Serviço | Endereço |
-|----------|------------|
-| DNS Google | 8.8.8.8 |
-| DNS Google | 8.8.4.4 |
-| DNS Interno | 10.24.40.190 |
-| DNS Interno | 10.1.1.195 |
-| DNS Interno | 10.1.1.242 |
+| Servidor DNS |
+|--------------|
+| 8.8.8.8 |
+| 8.8.4.4 |
+| 10.24.40.190 |
+| 10.1.1.195 |
+| 10.1.1.242 |
 
-### Domínios de Pesquisa
+### 🔎 Domínios de Pesquisa
 
 - senac.br
 - senacsp.edu.br
+
+---
+
+# 🏢 4. Topologia de Rede
+
+## 🔗 Topologia Física
+
+```text
+Notebook/PC
+     │
+     ▼
+Switch do Laboratório
+     │
+     ▼
+Windows 11 (Host)
+     │
+Oracle VirtualBox
+     │
+     ▼
+Ubuntu Server (VM)
+```
+
+## 🌐 Topologia Lógica
+
+| Componente | Função |
+|------------|---------|
+| Switch | Comunicação da rede local |
+| Windows 11 | Sistema hospedeiro |
+| Ubuntu Server | Servidor virtualizado |
+| Rede LAN | 10.24.82.0/24 |
+| SSH | Acesso remoto TCP/22 |
+
+### 📌 Observações
+
+✅ A VM está na mesma rede do laboratório.
+
+✅ Pode ser acessada diretamente pelo IP.
+
+✅ Não utiliza NAT nem redirecionamento de portas.
+
+✅ Necessário liberar a porta TCP 22 para acesso SSH.
 
 ---
 
@@ -129,119 +143,111 @@ Este documento apresenta um resumo da máquina virtual **wslinux01**, organizado
 
 ## 🌍 Serviços Web
 
-| Serviço | Porta | Status |
-|-----------|---------|----------|
-| Apache | 80 | ✅ Ativo |
-| Apache Alternativo | 8888 | ✅ Ativo |
-| Tomcat 11 | 8080 | ✅ Ativo |
+| Serviço | Porta |
+|----------|--------|
+| Apache HTTP | 80 |
+| Aplicação Web Secundária | 8888 |
+| Tomcat | 8080 |
 
 ---
 
 ## 🗄️ Banco de Dados
 
-| Serviço | Porta | Status |
-|-----------|---------|----------|
-| MySQL | 3306 | ✅ Ativo |
-| MySQL X Protocol | 33060 | ✅ Ativo |
+| Serviço | Porta |
+|----------|--------|
+| MySQL | 3306 |
+| MySQL X Protocol | 33060 |
 
 ---
 
-## 📈 Monitoramento
-
-| Serviço | Porta | Finalidade |
-|-----------|---------|-------------|
-| Grafana | 3000 | Dashboards |
-| Prometheus | 9091 | Coleta de métricas |
-| Node Exporter | 9100 | Métricas do servidor |
-
----
-
-## 🔒 Administração Remota
+## 📊 Monitoramento
 
 | Serviço | Porta |
-|-----------|---------|
+|----------|--------|
+| Grafana | 3000 |
+| Prometheus | 9091 |
+| Node Exporter | 9100 |
+
+---
+
+## 🔑 Administração
+
+| Serviço | Porta |
+|----------|--------|
 | SSH | 22 |
 
-### Status
-✅ Acesso remoto habilitado.
+---
+
+# ⚙️ 6. Serviços Ativos
+
+## 🟢 Serviços Principais
+
+| Serviço | Finalidade |
+|----------|------------|
+| Apache2 | Hospedagem Web |
+| Tomcat 11 | Aplicações Java |
+| MySQL | Banco de Dados |
+| Grafana | Dashboards |
+| Prometheus | Coleta de Métricas |
+| Node Exporter | Métricas do Sistema |
+| SSH | Administração Remota |
+| Cron | Tarefas Agendadas |
+| Rsyslog | Registro de Logs |
 
 ---
 
-# 🔧 6. Configuração de Rede
+# 🔒 7. Segurança
 
-## 📋 Resumo
+## Controles Identificados
 
-| Configuração | Valor |
-|--------------|--------|
-| DHCP IPv4 | Habilitado |
-| DHCP IPv6 | Desabilitado |
-| IP Configurado | 10.24.82.215/24 |
-| Gateway | 10.24.82.1 |
-| DNS Preferencial | 8.8.8.8 |
-| DNS Secundário | 8.8.4.4 |
+| Controle | Status |
+|-----------|--------|
+| SSH Ativo | ✅ |
+| Firewall UFW | ✅ Habilitado |
+| Atualizações Automáticas | ✅ Configuradas |
+| Resolução DNS | ✅ Configurada |
 
----
+### Recomendações
 
-# 🚀 7. Serviços do Sistema
-
-## ✅ Serviços Ativos
-
-- Apache Web Server
-- MySQL
-- Tomcat 11
-- Grafana
-- Prometheus
-- Node Exporter
-- SSH
-- Cron
-- Syslog
-- Network Manager
-- Resolved DNS
-- Timesync
-
-### Avaliação
-
-🟢 Todos os serviços principais encontram-se ativos.
+- Revisar periodicamente usuários com acesso SSH.
+- Validar regras do firewall.
+- Monitorar logs do sistema.
+- Aplicar atualizações de segurança regularmente.
 
 ---
 
-# 🛡️ 8. Segurança e Atualizações
+# 📦 8. Aplicações Instaladas
 
-## Atualizações Automáticas
+## Principais Componentes
 
-| Item | Situação |
-|---------|-----------|
-| Unattended Upgrades | ✅ Ativado |
-| Atualizações Pendentes | Sim |
-| Verificação de Segurança | Ativa |
-
-### Pacotes identificados para atualização
-
-- vim
-- vim-common
-- vim-runtime
-- vim-tiny
-- xxd
-- libgcrypt20
-
----
-
-# 📌 9. Resumo Executivo
-
-| Categoria | Situação |
+| Categoria | Tecnologia |
 |------------|------------|
-| Sistema Operacional | 🟢 Saudável |
-| Processador | 🟢 Normal |
-| Memória | 🟢 Normal |
-| Disco | 🟢 Espaço disponível |
-| Rede | 🟢 Operacional |
-| Banco de Dados | 🟢 Ativo |
-| Serviços Web | 🟢 Ativos |
-| Monitoramento | 🟢 Ativo |
-| Segurança | 🟡 Existem atualizações pendentes |
+| Sistema Operacional | Ubuntu 24.04 LTS |
+| Servidor Web | Apache 2 |
+| Aplicações Java | Tomcat 11 |
+| Banco de Dados | MySQL |
+| Monitoramento | Grafana |
+| Monitoramento | Prometheus |
+| Métricas | Node Exporter |
+| Runtime JavaScript | Node.js |
+| Linguagem Web | PHP 8.3 |
 
 ---
 
-## ✅ Conclusão
+# 📈 9. Resumo Executivo
 
-A máquina virtual encontra-se operacional, com recursos adequados para atividades de laboratório e aplicações de infraestrutura. Os principais serviços de rede, banco de dados, monitoramento e acesso remoto estão ativos. A única recomendação imediata é realizar a atualização dos pacotes pendentes para manter o ambiente atualizado e seguro.
+## Ambiente Atual
+
+| Área | Situação |
+|--------|-----------|
+| Sistema Operacional | ✅ Operacional |
+| Rede | ✅ Operacional |
+| Armazenamento | ✅ Espaço Disponível |
+| Banco de Dados | ✅ Ativo |
+| Serviços Web | ✅ Ativos |
+| Monitoramento | ✅ Ativo |
+| Acesso Remoto | ✅ Disponível |
+
+### Conclusão
+
+O servidor Ubuntu está operacional, integrado à rede do laboratório através de Bridge, oferecendo serviços web, banco de dados, monitoramento e acesso remoto. O ambiente apresenta boa disponibilidade de recursos e estrutura adequada para atividades acadêmicas e laboratoriais.

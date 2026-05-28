@@ -1,0 +1,568 @@
+---
+
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Model name:                              Intel(R) Core(TM) i7-14700K
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+NUMA node0 CPU(s):                       0,1
+
+---
+
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       1.3Gi       1.5Gi       4.0Mi       1.2Gi       2.5Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+---
+
+senac@wslinux01:~$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       1.3Gi       1.5Gi       4.0Mi       1.2Gi       2.5Gi
+Swap:          2.0Gi          0B       2.0Gi
+senac@wslinux01:~$ lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda                         8:0    0   50G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0    2G  0 part /boot
+└─sda3                      8:3    0   48G  0 part
+  └─ubuntu--vg-ubuntu--lv 252:0    0   48G  0 lvm  /
+sr0                        11:0    1 1024M  0 rom
+
+---
+
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda                         8:0    0   50G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0    2G  0 part /boot
+└─sda3                      8:3    0   48G  0 part
+  └─ubuntu--vg-ubuntu--lv 252:0    0   48G  0 lvm  /
+sr0                        11:0    1 1024M  0 rom
+senac@wslinux01:~$ df -h
+Filesystem                         Size  Used Avail Use% Mounted on
+tmpfs                              392M  1.1M  391M   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv   47G   11G   35G  24% /
+tmpfs                              2.0G     0  2.0G   0% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+/dev/sda2                          2.0G  200M  1.6G  11% /boot
+tmpfs                              392M   16K  392M   1% /run/user/1000
+
+
+---
+
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+enp0s3           UP             10.24.82.215/24 10.24.82.47/24 metric 100
+
+---
+
+cat: /etc/netplan/50-cloud-init.yaml: Permission denied
+senac@wslinux01:~$ sudo cat /etc/netplan/*.yaml
+[sudo] password for senac:
+#Configuração da Placa de Rede do Ubuntu Server
+#Alterar somente o Endereço IPv4 e Gateway do Servidor
+#
+network:
+  version: 2
+  ethernets:
+    enp0s3:
+      link-local: []
+      dhcp4: true
+      dhcp6: false
+      #Alterar o endereço do servidor para o cenário do laboratório
+      #Confirmar o seu endereço de rede com o professor
+      addresses: [10.24.82.215/24]
+      routes:
+        - to: default
+          #Alterar o endereço do Gateway para o cenário do laboratório
+          #Será igual para todos os alunos do cenário do laboratório
+          via: 10.24.82.1
+      nameservers:
+        #Atualizar os DNS do Google para facilitar a integração
+        addresses: [8.8.8.8, 8.8.4.4]
+        search: [senac.br]
+
+
+---
+
+  UNIT                        LOAD   ACTIVE SUB     DESCRIPTION
+  apache2.service             loaded active running The Apache HTTP Server
+  cron.service                loaded active running Regular background program processing daemon
+  dbus.service                loaded active running D-Bus System Message Bus
+  fwupd.service               loaded active running Firmware update daemon
+  getty@tty1.service          loaded active running Getty on tty1
+  getty@tty6.service          loaded active running Getty on tty6
+  grafana-server.service      loaded active running Grafana instance
+  ModemManager.service        loaded active running Modem Manager
+  multipathd.service          loaded active running Device-Mapper Multipath Device Controller
+  mysql.service               loaded active running MySQL Community Server
+  node_exporter.service       loaded active running Node Exporter
+  polkit.service              loaded active running Authorization Manager
+  prometheus.service          loaded active running Prometheus
+  rsyslog.service             loaded active running System Logging Service
+  ssh.service                 loaded active running OpenBSD Secure Shell server
+  systemd-journald.service    loaded active running Journal Service
+  systemd-logind.service      loaded active running User Login Management
+  systemd-networkd.service    loaded active running Network Configuration
+  systemd-resolved.service    loaded active running Network Name Resolution
+  systemd-timesyncd.service   loaded active running Network Time Synchronization
+  systemd-udevd.service       loaded active running Rule-based Manager for Device Events and Files
+  tomcat11.service            loaded active running Apache Tomcat11
+  udisks2.service             loaded active running Disk Manager
+  unattended-upgrades.service loaded active running Unattended Upgrades Shutdown
+  upower.service              loaded active running Daemon for power management
+  user@1000.service           loaded active running User Manager for UID 1000
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+---
+
+UNIT FILE                              STATE   PRESET
+apache2.service                        enabled enabled
+apparmor.service                       enabled enabled
+apport.service                         enabled enabled
+blk-availability.service               enabled enabled
+cloud-config.service                   enabled enabled
+cloud-final.service                    enabled enabled
+cloud-init-local.service               enabled enabled
+cloud-init.service                     enabled enabled
+console-setup.service                  enabled enabled
+cron.service                           enabled enabled
+dmesg.service                          enabled enabled
+e2scrub_reap.service                   enabled enabled
+finalrd.service                        enabled enabled
+getty@.service                         enabled enabled
+gpu-manager.service                    enabled enabled
+grafana-server.service                 enabled enabled
+grub-common.service                    enabled enabled
+grub-initrd-fallback.service           enabled enabled
+keyboard-setup.service                 enabled enabled
+lvm2-monitor.service                   enabled enabled
+ModemManager.service                   enabled enabled
+multipathd.service                     enabled enabled
+mysql.service                          enabled enabled
+networkd-dispatcher.service            enabled enabled
+node_exporter.service                  enabled enabled
+open-iscsi.service                     enabled enabled
+open-vm-tools.service                  enabled enabled
+pollinate.service                      enabled enabled
+prometheus.service                     enabled enabled
+rsyslog.service                        enabled enabled
+secureboot-db.service                  enabled enabled
+setvtrgb.service                       enabled enabled
+snapd.apparmor.service                 enabled enabled
+snapd.autoimport.service               enabled enabled
+snapd.core-fixup.service               enabled enabled
+snapd.recovery-chooser-trigger.service enabled enabled
+snapd.seeded.service                   enabled enabled
+snapd.service                          enabled enabled
+snapd.system-shutdown.service          enabled enabled
+ssl-cert.service                       enabled enabled
+sysstat.service                        enabled enabled
+systemd-networkd-wait-online.service   enabled enabled
+systemd-networkd.service               enabled enabled
+systemd-pstore.service                 enabled enabled
+systemd-resolved.service               enabled enabled
+systemd-timesyncd.service              enabled enabled
+thermald.service                       enabled enabled
+tomcat11.service                       enabled enabled
+ua-reboot-cmds.service                 enabled enabled
+ubuntu-advantage.service               enabled enabled
+udisks2.service                        enabled enabled
+ufw.service                            enabled enabled
+unattended-upgrades.service            enabled enabled
+vgauth.service                         enabled enabled
+---
+
+Reading package lists... Done
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)
+W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)
+---
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Listing...
+adduser/noble,now 3.137ubuntu1 all [installed,automatic]
+adwaita-icon-theme/noble,now 46.0-1 all [installed,automatic]
+alsa-topology-conf/noble,now 1.2.5.1-2 all [installed,automatic]
+alsa-ucm-conf/now 1.2.10-1ubuntu5.9 all [installed,upgradable to: 1.2.10-1ubuntu5.10]
+amd64-microcode/noble-updates,noble-security,now 3.20250311.1ubuntu0.24.04.1 amd64 [installed,automatic]
+apache2-bin/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+apache2-data/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 all [installed]
+apache2-utils/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+apache2/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+---
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Listing...
+adduser/noble,now 3.137ubuntu1 all [installed,automatic]
+adwaita-icon-theme/noble,now 46.0-1 all [installed,automatic]
+alsa-topology-conf/noble,now 1.2.5.1-2 all [installed,automatic]
+alsa-ucm-conf/now 1.2.10-1ubuntu5.9 all [installed,upgradable to: 1.2.10-1ubuntu5.10]
+amd64-microcode/noble-updates,noble-security,now 3.20250311.1ubuntu0.24.04.1 amd64 [installed,automatic]
+apache2-bin/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+apache2-data/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 all [installed]
+apache2-utils/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+apache2/noble-updates,noble-security,now 2.4.58-1ubuntu8.12 amd64 [installed]
+senac@wslinux01:~$ unattended-upgrades --dry-run --debug
+You need to be root to run this application
+senac@wslinux01:~$ sudo unattended-upgrades --dry-run --debug
+Could not figure out development release: Distribution data outdated. Please check for an update for distro-info-data. See /usr/share/doc/distro-info-data/README.Debian for details.
+Starting unattended upgrades script
+Allowed origins are: o=Ubuntu,a=noble, o=Ubuntu,a=noble-security, o=UbuntuESMApps,a=noble-apps-security, o=UbuntuESM,a=noble-infra-security
+Initial blacklist:
+Initial whitelist (not strict):
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0> with -32768 pin
+Applying pinning: PkgFilePin(id=23, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23>
+Applying pinning: PkgFilePin(id=22, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22>
+Applying pinning: PkgFilePin(id=21, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21>
+Applying pinning: PkgFilePin(id=20, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20>
+Applying pinning: PkgFilePin(id=19, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19>
+Applying pinning: PkgFilePin(id=18, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18>
+Applying pinning: PkgFilePin(id=17, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17>
+Applying pinning: PkgFilePin(id=16, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16>
+Applying pinning: PkgFilePin(id=15, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15>
+Applying pinning: PkgFilePin(id=14, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14>
+Applying pinning: PkgFilePin(id=13, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13>
+Applying pinning: PkgFilePin(id=12, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12>
+Applying pinning: PkgFilePin(id=11, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11>
+Applying pinning: PkgFilePin(id=10, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10>
+Applying pinning: PkgFilePin(id=1, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1>
+Applying pinning: PkgFilePin(id=0, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0>
+Using (^linux-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^kfreebsd-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^gnumach-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^.*-modules-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^.*-kernel-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^linux-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^kfreebsd-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^gnumach-.*-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^.*-modules-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$|^.*-kernel-[1-9][0-9]*\.[0-9]+\.[0-9]+-[0-9]+(-.+)?$) regexp to find kernel packages
+Using (^linux-.*-6\.8\.0\-117\-generic$|^linux-.*-6\.8\.0\-117$|^kfreebsd-.*-6\.8\.0\-117\-generic$|^kfreebsd-.*-6\.8\.0\-117$|^gnumach-.*-6\.8\.0\-117\-generic$|^gnumach-.*-6\.8\.0\-117$|^.*-modules-6\.8\.0\-117\-generic$|^.*-modules-6\.8\.0\-117$|^.*-kernel-6\.8\.0\-117\-generic$|^.*-kernel-6\.8\.0\-117$|^linux-.*-6\.8\.0\-117\-generic$|^linux-.*-6\.8\.0\-117$|^kfreebsd-.*-6\.8\.0\-117\-generic$|^kfreebsd-.*-6\.8\.0\-117$|^gnumach-.*-6\.8\.0\-117\-generic$|^gnumach-.*-6\.8\.0\-117$|^.*-modules-6\.8\.0\-117\-generic$|^.*-modules-6\.8\.0\-117$|^.*-kernel-6\.8\.0\-117\-generic$|^.*-kernel-6\.8\.0\-117$) regexp to find running kernel packages
+Checking: alsa-ucm-conf ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: alsa-ucm-conf=1.2.10-1ubuntu5.9
+Checking: apparmor ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: apparmor=4.0.1really4.0.1-0ubuntu0.24.04.5
+Checking: binutils ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: binutils=2.42-4ubuntu2.8
+Checking: binutils-common ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: binutils-common=2.42-4ubuntu2.8
+Checking: binutils-x86-64-linux-gnu ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: binutils-x86-64-linux-gnu=2.42-4ubuntu2.8
+Checking: coreutils ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: coreutils=9.4-3ubuntu6.1
+Checking: distro-info-data ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: distro-info-data=0.60ubuntu0.5
+Checking: fwupd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: fwupd=1.9.33-0ubuntu1~24.04.1ubuntu1
+Checking: grafana ([<Origin component:'main' archive:'stable' origin:'. stable' label:'. stable' site:'apt.grafana.com' isTrusted:True>])
+adjusting candidate version: grafana=12.4.0
+Checking: iproute2 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: iproute2=6.1.0-1ubuntu6.2
+Checking: libapache2-mod-php8.3 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libapache2-mod-php8.3=8.3.6-0ubuntu0.24.04.6
+Checking: libapparmor1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libapparmor1=4.0.1really4.0.1-0ubuntu0.24.04.5
+Checking: libbinutils ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libbinutils=2.42-4ubuntu2.8
+Checking: libctf-nobfd0 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libctf-nobfd0=2.42-4ubuntu2.8
+Checking: libctf0 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libctf0=2.42-4ubuntu2.8
+Checking: libfwupd2 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libfwupd2=1.9.33-0ubuntu1~24.04.1ubuntu1
+Checking: libgcrypt20 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+Checking: libgprofng0 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libgprofng0=2.42-4ubuntu2.8
+Checking: libheif-plugin-aomdec ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libheif-plugin-aomdec=1.17.6-1ubuntu4.2
+Checking: libheif-plugin-aomenc ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libheif-plugin-aomenc=1.17.6-1ubuntu4.2
+Checking: libheif-plugin-libde265 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libheif-plugin-libde265=1.17.6-1ubuntu4.2
+Checking: libheif1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libheif1=1.17.6-1ubuntu4.2
+Checking: libnetplan1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libnetplan1=1.1.2-8ubuntu1~24.04.1
+Checking: libnftables1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libnftables1=1.0.9-1build1
+Checking: libnss-systemd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libnss-systemd=255.4-1ubuntu8.14
+Checking: libpam-systemd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libpam-systemd=255.4-1ubuntu8.14
+Checking: libsframe1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libsframe1=2.42-4ubuntu2.8
+Checking: libsystemd-shared ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libsystemd-shared=255.4-1ubuntu8.14
+Checking: libsystemd0 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libsystemd0=255.4-1ubuntu8.14
+Checking: libudev1 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: libudev1=255.4-1ubuntu8.14
+Checking: linux-base ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: linux-base=4.5ubuntu9+24.04.1
+Checking: linux-firmware ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: linux-firmware=20240318.git3b128b60-0ubuntu2.26
+Checking: lshw ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: lshw=02.19.git.2021.06.19.996aaad9c7-2build3
+Checking: netplan-generator ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: netplan-generator=1.1.2-8ubuntu1~24.04.1
+Checking: netplan.io ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: netplan.io=1.1.2-8ubuntu1~24.04.1
+Checking: nftables ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: nftables=1.0.9-1build1
+Checking: nodejs ([<Origin component:'main' archive:'nodistro' origin:'. nodistro' label:'. nodistro' site:'deb.nodesource.com' isTrusted:True>])
+adjusting candidate version: nodejs=24.13.1-1nodesource1
+Checking: open-vm-tools ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: open-vm-tools=2:12.5.0-1~ubuntu0.24.04.2
+Checking: php8.3 ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-bcmath ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-bcmath=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-bz2 ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-bz2=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-cli ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-cli=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-common ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-common=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-curl ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-curl=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-dev ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-dev=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-gd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-gd=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-gmp ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-gmp=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-imap ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-imap=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-intl ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-intl=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-ldap ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-ldap=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-mbstring ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-mbstring=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-mysql ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-mysql=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-opcache ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-opcache=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-pspell ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-pspell=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-readline ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-readline=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-soap ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-soap=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-tidy ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-tidy=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-xml ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-xml=8.3.6-0ubuntu0.24.04.6
+Checking: php8.3-zip ([<Origin component:'universe' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: php8.3-zip=8.3.6-0ubuntu0.24.04.6
+Checking: python3-netplan ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: python3-netplan=1.1.2-8ubuntu1~24.04.1
+Checking: rsyslog ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: rsyslog=8.2312.0-3ubuntu9.1
+Checking: snapd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: snapd=2.73+ubuntu24.04.2
+Checking: sosreport ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: sosreport=4.9.2-0ubuntu0~24.04.1
+Checking: systemd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: systemd=255.4-1ubuntu8.14
+Checking: systemd-dev ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: systemd-dev=255.4-1ubuntu8.14
+Checking: systemd-resolved ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: systemd-resolved=255.4-1ubuntu8.14
+Checking: systemd-sysv ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: systemd-sysv=255.4-1ubuntu8.14
+Checking: systemd-timesyncd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: systemd-timesyncd=255.4-1ubuntu8.14
+Checking: thermald ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: thermald=2.5.6-2ubuntu0.24.04.3
+Checking: ubuntu-drivers-common ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: ubuntu-drivers-common=1:0.9.7.6ubuntu3.5
+Checking: ubuntu-pro-client ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: ubuntu-pro-client=37.1ubuntu0~24.04
+Checking: ubuntu-pro-client-l10n ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: ubuntu-pro-client-l10n=37.1ubuntu0~24.04
+Checking: udev ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>])
+adjusting candidate version: udev=255.4-1ubuntu8.14
+Checking: vim ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+Checking: vim-common ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+Checking: vim-runtime ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+Checking: vim-tiny ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+Checking: xxd ([<Origin component:'main' archive:'noble-updates' origin:'Ubuntu' label:'Ubuntu' site:'archive.ubuntu.com' isTrusted:True>, <Origin component:'main' archive:'noble-security' origin:'Ubuntu' label:'Ubuntu' site:'security.ubuntu.com' isTrusted:True>])
+pkgs that look like they should be upgraded: libgcrypt20
+vim
+vim-common
+vim-runtime
+vim-tiny
+xxd
+Fetched 0 B in 0s (0 B/s)
+fetch.run() result: 0
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 532392 DestFile:'/var/cache/apt/archives/libgcrypt20_1.10.3-2ubuntu0.1_amd64.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/libg/libgcrypt20/libgcrypt20_1.10.3-2ubuntu0.1_amd64.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/libgcrypt20_1.10.3-2ubuntu0.1_amd64.deb)
+found pkg: libgcrypt20
+No conffiles in deb /var/cache/apt/archives/libgcrypt20_1.10.3-2ubuntu0.1_amd64.deb (There is no member named 'conffiles')
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 1882614 DestFile:'/var/cache/apt/archives/vim_2%3a9.1.0016-1ubuntu7.14_amd64.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/v/vim/vim_9.1.0016-1ubuntu7.14_amd64.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/vim_2%3a9.1.0016-1ubuntu7.14_amd64.deb)
+found pkg: vim
+No conffiles in deb /var/cache/apt/archives/vim_2%3a9.1.0016-1ubuntu7.14_amd64.deb (There is no member named 'conffiles')
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 387332 DestFile:'/var/cache/apt/archives/vim-common_2%3a9.1.0016-1ubuntu7.14_all.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/v/vim/vim-common_9.1.0016-1ubuntu7.14_all.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/vim-common_2%3a9.1.0016-1ubuntu7.14_all.deb)
+found pkg: vim-common
+conffile line: /etc/vim/vimrc 39f4010c45bc0f6d1df420db9febaba8
+current md5: 39f4010c45bc0f6d1df420db9febaba8
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 805050 DestFile:'/var/cache/apt/archives/vim-tiny_2%3a9.1.0016-1ubuntu7.14_amd64.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/v/vim/vim-tiny_9.1.0016-1ubuntu7.14_amd64.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/vim-tiny_2%3a9.1.0016-1ubuntu7.14_amd64.deb)
+found pkg: vim-tiny
+conffile line: /etc/vim/vimrc.tiny 2eef1685cce57398be3763940dbced84
+current md5: 2eef1685cce57398be3763940dbced84
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 7282768 DestFile:'/var/cache/apt/archives/vim-runtime_2%3a9.1.0016-1ubuntu7.14_all.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/v/vim/vim-runtime_9.1.0016-1ubuntu7.14_all.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/vim-runtime_2%3a9.1.0016-1ubuntu7.14_all.deb)
+found pkg: vim-runtime
+No conffiles in deb /var/cache/apt/archives/vim-runtime_2%3a9.1.0016-1ubuntu7.14_all.deb (There is no member named 'conffiles')
+<apt_pkg.AcquireItem object:Status: 2 Complete: 1 Local: 1 IsTrusted: 1 FileSize: 64940 DestFile:'/var/cache/apt/archives/xxd_2%3a9.1.0016-1ubuntu7.14_amd64.deb' DescURI: 'http://archive.ubuntu.com/ubuntu/pool/main/v/vim/xxd_9.1.0016-1ubuntu7.14_amd64.deb' ID:0 ErrorText: ''>
+check_conffile_prompt(/var/cache/apt/archives/xxd_2%3a9.1.0016-1ubuntu7.14_amd64.deb)
+found pkg: xxd
+No conffiles in deb /var/cache/apt/archives/xxd_2%3a9.1.0016-1ubuntu7.14_amd64.deb (There is no member named 'conffiles')
+Packages blacklist due to conffile prompts: []
+Option --dry-run given, *not* performing real actions
+Packages that will be upgraded: libgcrypt20 vim vim-common vim-runtime vim-tiny xxd
+Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+applying set ['vim', 'xxd', 'vim-common', 'vim-tiny', 'vim-runtime']
+/usr/bin/unattended-upgrades:567: DeprecationWarning: This process (pid=3550) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+/usr/bin/dpkg --status-fd 10 --no-triggers --unpack --auto-deconfigure /var/cache/apt/archives/vim_2%3a9.1.0016-1ubuntu7.14_amd64.deb /var/cache/apt/archives/vim-common_2%3a9.1.0016-1ubuntu7.14_all.deb /var/cache/apt/archives/vim-tiny_2%3a9.1.0016-1ubuntu7.14_amd64.deb /var/cache/apt/archives/vim-runtime_2%3a9.1.0016-1ubuntu7.14_all.deb /var/cache/apt/archives/xxd_2%3a9.1.0016-1ubuntu7.14_amd64.deb
+/usr/bin/dpkg --status-fd 10 --configure --pending
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0> with -32768 pin
+Applying pinning: PkgFilePin(id=23, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23>
+Applying pinning: PkgFilePin(id=22, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22>
+Applying pinning: PkgFilePin(id=21, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21>
+Applying pinning: PkgFilePin(id=20, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20>
+Applying pinning: PkgFilePin(id=19, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19>
+Applying pinning: PkgFilePin(id=18, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18>
+Applying pinning: PkgFilePin(id=17, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17>
+Applying pinning: PkgFilePin(id=16, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16>
+Applying pinning: PkgFilePin(id=15, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15>
+Applying pinning: PkgFilePin(id=14, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14>
+Applying pinning: PkgFilePin(id=13, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13>
+Applying pinning: PkgFilePin(id=12, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12>
+Applying pinning: PkgFilePin(id=11, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11>
+Applying pinning: PkgFilePin(id=10, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10>
+Applying pinning: PkgFilePin(id=1, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1>
+Applying pinning: PkgFilePin(id=0, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0>
+left to upgrade {'libgcrypt20'}
+applying set ['libgcrypt20']
+/usr/bin/unattended-upgrades:567: DeprecationWarning: This process (pid=3550) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+/usr/bin/dpkg --status-fd 10 --no-triggers --unpack --auto-deconfigure /var/cache/apt/archives/libgcrypt20_1.10.3-2ubuntu0.1_amd64.deb
+/usr/bin/dpkg --status-fd 10 --no-triggers --configure libgcrypt20:amd64
+/usr/bin/dpkg --status-fd 10 --configure --pending
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1> with -32768 pin
+Marking not allowed <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0> with -32768 pin
+Applying pinning: PkgFilePin(id=23, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_i18n_Translation-en'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=394 ID:23>
+Applying pinning: PkgFilePin(id=22, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_multiverse_binary-amd64_Packages'  a=noble-backports,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=1062 ID:22>
+Applying pinning: PkgFilePin(id=21, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_i18n_Translation-en'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=67282 ID:21>
+Applying pinning: PkgFilePin(id=20, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_universe_binary-amd64_Packages'  a=noble-backports,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=143929 ID:20>
+Applying pinning: PkgFilePin(id=19, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_i18n_Translation-en'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121051 ID:19>
+Applying pinning: PkgFilePin(id=18, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-backports_main_binary-amd64_Packages'  a=noble-backports,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=254753 ID:18>
+Applying pinning: PkgFilePin(id=17, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_i18n_Translation-en'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=121303 ID:17>
+Applying pinning: PkgFilePin(id=16, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_multiverse_binary-amd64_Packages'  a=noble-updates,c=multiverse,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=329868 ID:16>
+Applying pinning: PkgFilePin(id=15, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_i18n_Translation-en'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=3627231 ID:15>
+Applying pinning: PkgFilePin(id=14, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_universe_binary-amd64_Packages'  a=noble-updates,c=universe,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=10587303 ID:14>
+Applying pinning: PkgFilePin(id=13, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_i18n_Translation-en'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=14393055 ID:13>
+Applying pinning: PkgFilePin(id=12, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_restricted_binary-amd64_Packages'  a=noble-updates,c=restricted,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=18795924 ID:12>
+Applying pinning: PkgFilePin(id=11, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_i18n_Translation-en'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='archive.ubuntu.com' IndexType='Debian Translation Index' Size=7693560 ID:11>
+Applying pinning: PkgFilePin(id=10, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_noble-updates_main_binary-amd64_Packages'  a=noble-updates,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='archive.ubuntu.com' IndexType='Debian Package Index' Size=11078202 ID:10>
+Applying pinning: PkgFilePin(id=1, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/deb.nodesource.com_node%5f24.x_dists_nodistro_main_binary-amd64_Packages'  a=nodistro,c=main,v=,o=. nodistro,l=. nodistro arch='amd64' site='deb.nodesource.com' IndexType='Debian Package Index' Size=40010 ID:1>
+Applying pinning: PkgFilePin(id=0, priority=-32768)
+Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/apt.grafana.com_dists_stable_main_binary-amd64_Packages'  a=stable,c=main,v=,o=. stable,l=. stable arch='amd64' site='apt.grafana.com' IndexType='Debian Package Index' Size=2181538 ID:0>
+left to upgrade set()
+All upgrades installed
+InstCount=0 DelCount=0 BrokenCount=0
+The list of kept packages can't be calculated in dry-run mode.

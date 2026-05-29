@@ -1,0 +1,73 @@
+Ir ao document root padrão
+total 32K
+drwxr-xr-x 24 www-data www-data 4.0K Dec  4 08:49 glpi
+-rw-r--r--  1 root     root      11K Feb 14 00:30 index.html
+drwxrwsr-x  8 www-data www-data 4.0K Feb 24 00:32 outlawgames
+drwxrwsr-x  8 www-data www-data 4.0K Feb 24 00:33 protectpetz
+drwxrwsr-x  2 root     www-data 4.0K Feb 14 00:35 senactit
+drwxrwsr-x  5 www-data www-data 4.0K May 21 01:00 wp
+---
+
+
+Ver sites disponíveis
+000-default.conf  default-ssl.conf
+---
+
+
+Ver sites ativos
+000-default.conf
+---
+
+Ver todos os document roots
+/etc/apache2/conf-available/glpi.conf:  DocumentRoot /var/www/html/glpi/public
+/etc/apache2/sites-available/000-default.conf:  DocumentRoot /var/www/html
+/etc/apache2/sites-available/default-ssl.conf:  DocumentRoot /var/www/html
+---
+
+
+Status geral + virtual hosts
+VirtualHost configuration:
+*:8888                 localhost (/etc/apache2/conf-enabled/glpi.conf:16)
+*:80                   localhost (/etc/apache2/sites-enabled/000-default.conf:1)
+ServerRoot: "/etc/apache2"
+Main DocumentRoot: "/var/www/html"
+Main ErrorLog: "/var/log/apache2/error.log"
+Mutex default: dir="/var/run/apache2/" mechanism=default
+Mutex mpm-accept: using_defaults
+Mutex watchdog-callback: using_defaults
+Mutex rewrite-map: using_defaults
+PidFile: "/var/run/apache2/apache2.pid"
+Define: DUMP_VHOSTS
+Define: DUMP_RUN_CFG
+Define: ENABLE_USR_LIB_CGI_BIN
+User: name="www-data" id=33
+Group: name="www-data" id=33
+---
+
+
+1. Conectar ao MySQL como Root
+sudo mysql -u root -p
+
+Quando conectado, o prompt mudará para:
+mysql>
+
+2. Listar os Bancos de Dados
+Dentro do prompt do MySQL, execute:
+SHOW DATABASES;
+A saída será parecida com:
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| seu_banco_aqui     |
++--------------------+
+
+3. Sair do MySQL
+EXIT;
+
+
+
+
